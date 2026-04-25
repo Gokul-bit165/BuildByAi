@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Detail — BuiltByAI</title>
+  <link rel="icon" href="assets/ASSET 6 — FaviconLogo Mark.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@200;300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .project-hero {
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      z-index: -1;
+    }
+    .project-header-info {
+      max-width: 800px;
+    }
+    .project-tags {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .tag {
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      padding: 10rem 4rem;
+      gap: 5rem;
+    }
+    .project-meta {
+      position: sticky;
+      top: 10rem;
+      height: fit-content;
+    }
+    .meta-item {
+      margin-bottom: 3rem;
+    }
+    .meta-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .meta-value {
+      font-family: var(--dm);
+      font-size: 1.2rem;
+    }
+    .project-content h2 {
+      font-family: var(--bebas);
+      font-size: 4rem;
+      margin-bottom: 2rem;
+    }
+    .project-content p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 4rem;
+    }
+    .project-image-full {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--muted2);
+      margin-bottom: 4rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="project-page">
+
+  <div class="noise-overlay"></div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"><span class="ring-label"></span></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/ASSET 6 — FaviconLogo Mark.png" alt="Logo">
+      <span>BuiltByAI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start a Project</a>
+  </nav>
+
+  <main>
+    <section class="project-hero">
+      <img src="assets/ASSET 2 — Project Mockup.png" alt="Project Hero">
+      <div class="project-header-info">
+        <div class="project-tags">
+          <span class="tag">AI PRODUCT</span>
+          <span class="tag">NEURAL NETS</span>
+        </div>
+        <h1 style="font-family: var(--bebas); font-size: 8rem; line-height: 0.9;">NEXUS<br>INTELLIGENCE</h1>
+      </div>
+    </section>
+
+    <div class="project-grid">
+      <aside class="project-meta">
+        <div class="meta-item">
+          <span class="meta-label">CLIENT</span>
+          <span class="meta-value">NEXUS GLOBAL</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">YEAR</span>
+          <span class="meta-value">2026</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">SERVICES</span>
+          <span class="meta-value">AI Integration, UI/UX Design</span>
+        </div>
+      </aside>
+
+      <article class="project-content">
+        <section>
+          <h2>THE CHALLENGE</h2>
+          <p>Nexus Global faced a critical bottleneck in their data processing pipeline. Their manual reconciliation was taking 40+ hours weekly, leading to significant overhead and human error. They needed an autonomous solution that could adapt to their complex financial datasets.</p>
+        </section>
+
+        <div class="project-image-full"></div>
+
+        <section>
+          <h2>THE SOLUTION</h2>
+          <p>We engineered a custom RAG (Retrieval-Augmented Generation) pipeline using high-performance vector databases. The system doesn't just process data—it learns from every edge case. We paired this with a cinematic dashboard that allows their team to monitor the AI's "thought process" in real-time.</p>
+        </section>
+
+        <div class="project-image-full"></div>
+
+        <section>
+          <h2>THE RESULTS</h2>
+          <p>Reconciliation time was slashed from 40 hours to just 4 minutes. The system achieved a 99.8% accuracy rate, saving the client estimated $1.2M in annual operational costs. The immersive UI also boosted team morale and internal tool adoption.</p>
+        </section>
+      </article>
+    </div>
+
+    <section style="padding: 10rem 4rem; text-align: center; border-top: 1px solid var(--muted2);">
+      <h2 style="font-family: var(--bebas); font-size: 6rem;">NEXT PROJECT</h2>
+      <a href="work.html" style="font-family: var(--mono); color: var(--accent); text-decoration: none; font-size: 1rem; letter-spacing: 0.2em;">VIEW ALL WORK →</a>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>
