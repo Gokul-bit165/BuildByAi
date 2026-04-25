@@ -19,6 +19,7 @@
       grid-template-columns: 1fr 1fr;
       padding: 10rem 4rem;
       gap: 5rem;
+      position: relative;
     }
     .services-left {
       height: fit-content;
@@ -26,16 +27,62 @@
       top: 10rem;
     }
     .service-detail-card {
-      background: var(--muted2);
-      border: 1px solid var(--muted2);
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       padding: 4rem;
-      margin-bottom: 5rem;
-      border-radius: 20px;
+      margin-bottom: 8rem;
+      border-radius: 2px; /* Sharp futuristic edges */
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s;
+    }
+    .service-detail-card:hover {
+      border-color: var(--accent);
+    }
+    .service-detail-card::before {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      animation: scan 4s linear infinite;
+    }
+    @keyframes scan {
+      0% { top: -100%; }
+      100% { top: 200%; }
+    }
+    .tech-data {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--accent);
+      opacity: 0.3;
+      text-align: right;
     }
     .service-detail-card h3 {
       font-family: var(--bebas);
-      font-size: 3rem;
+      font-size: 4rem;
       margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+    .service-list li {
+      margin-bottom: 0.8rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+      transition: opacity 0.3s, padding-left 0.3s;
+    }
+    .service-detail-card:hover .service-list li {
+      opacity: 1;
+    }
+    .service-list li:hover {
+      padding-left: 10px;
+      color: var(--white);
     }
   </style>
 </head>
@@ -77,9 +124,10 @@
     
     <div class="services-right">
       <div class="service-detail-card">
+        <div class="tech-data">LN: 40.7128<br>LT: -74.0060<br>ST: ACTIVE</div>
         <h3>AI INTEGRATION</h3>
         <p style="color: var(--muted); line-height: 1.8;">We don't just add AI; we build intelligence into your core workflow. Custom LLM training, RAG pipelines, and autonomous agent orchestration.</p>
-        <ul style="margin-top: 2rem; color: var(--accent); font-family: var(--mono); list-style: none;">
+        <ul class="service-list" style="margin-top: 2rem; color: var(--accent); font-family: var(--mono); list-style: none;">
           <li>• CUSTOM LLMS</li>
           <li>• VECTOR DATABASES</li>
           <li>• AGENTIC WORKFLOWS</li>
@@ -87,9 +135,10 @@
       </div>
       
       <div class="service-detail-card">
+        <div class="tech-data">SYS: VER 2.4<br>CORE: 128-BIT<br>ST: STABLE</div>
         <h3>FULLSTACK DEV</h3>
         <p style="color: var(--muted); line-height: 1.8;">High-performance applications built for speed and scale. We specialize in Next.js, Node.js, and globally distributed architectures.</p>
-        <ul style="margin-top: 2rem; color: var(--accent); font-family: var(--mono); list-style: none;">
+        <ul class="service-list" style="margin-top: 2rem; color: var(--accent); font-family: var(--mono); list-style: none;">
           <li>• NEXT.JS / REACT</li>
           <li>• TYPESCRIPT</li>
           <li>• SERVERLESS ARCH</li>
@@ -97,9 +146,10 @@
       </div>
       
       <div class="service-detail-card">
+        <div class="tech-data">PX: 3840x2160<br>FR: 120FPS<br>ST: RENDER</div>
         <h3>PRODUCT DESIGN</h3>
         <p style="color: var(--muted); line-height: 1.8;">Cinematic user experiences that bridge the gap between human and machine. We focus on dark mode, immersive UI, and smooth motion.</p>
-        <ul style="margin-top: 2rem; color: var(--accent); font-family: var(--mono); list-style: none;">
+        <ul class="service-list" style="margin-top: 2rem; color: var(--accent); font-family: var(--mono); list-style: none;">
           <li>• INTERFACE DESIGN</li>
           <li>• MOTION SYSTEMS</li>
           <li>• PROTOTYPING</li>
@@ -115,5 +165,20 @@
   <script src="js/cursor.js"></script>
   <script src="js/nav.js"></script>
   <script src="js/animations.js"></script>
+  <script>
+    document.addEventListener('mousemove', (e) => {
+      const left = document.querySelector('.services-left');
+      if (!left) return;
+      const { clientX, clientY } = e;
+      const x = (clientX / window.innerWidth - 0.5) * 20;
+      const y = (clientY / window.innerHeight - 0.5) * 20;
+      gsap.to(left, {
+        rotateY: x,
+        rotateX: -y,
+        duration: 0.8,
+        ease: 'power2.out'
+      });
+    });
+  </script>
 </body>
 </html>

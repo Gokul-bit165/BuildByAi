@@ -156,20 +156,29 @@ nav {
 }
 
 .nav-cta {
-  background: transparent;
-  border: 1px solid rgba(184,255,87,0.4);
-  color: var(--accent);
-  padding: 0.6rem 1.4rem;
+  background: var(--accent);
+  border: none;
+  color: var(--ink);
+  padding: 0.6rem 1.6rem;
   font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: none;
   transition: all 0.3s;
+  box-shadow: 0 0 15px rgba(184, 255, 87, 0.3);
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 10px rgba(184, 255, 87, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(184, 255, 87, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(184, 255, 87, 0.3); }
 }
 
 .nav-cta:hover {
-  background: var(--accent);
-  color: var(--ink);
+  transform: scale(1.05);
+  box-shadow: 0 0 30px var(--accent);
 }
 
 /* LOADER */
@@ -269,7 +278,6 @@ nav {
   transition: opacity 0.4s;
 }
 
-/* FLOATING CHIPS */
 .float-chip {
   position: absolute;
   padding: 0.5rem 1rem;
@@ -283,6 +291,16 @@ nav {
   white-space: nowrap;
   pointer-events: auto;
   z-index: 3;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+}
+
+.float-chip:hover {
+  background: var(--accent);
+  color: var(--ink);
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 0 30px var(--accent);
+  z-index: 10;
 }
 
 /* VIDEO SCRUB SECTION */

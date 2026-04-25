@@ -26,7 +26,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 2. HERO 3D MOUSE EFFECTS
+  // 2. HERO NETWORK CANVAS
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas?.getContext('2d');
+  const chips = document.querySelectorAll('.float-chip');
+  let mouse = { x: null, y: null };
+
+  const resizeCanvas = () => {
+    if (canvas) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+  };
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  const drawLines = () => {
+    if (!ctx || !canvas) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    const chipRects = Array.from(chips).map(chip => {
+      const rect = chip.getBoundingClientRect();
+      return {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+        el: chip
+      };
+    });
+
+    ctx.strokeStyle = 'rgba(184, 255, 87, 0.15)';
+    ctx.lineWidth = 1;
+
+    for (let i = 0; i < chipRects.length; i++) {
+      for (let j = i + 1; j < chipRects.length; j++) {
+        const dx = chipRects[i].x - chipRects[j].x;
+        const dy = chipRects[i].y - chipRects[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 400) {
+          ctx.beginPath();
+          ctx.moveTo(chipRects[i].x, chipRects[i].y);
+          ctx.lineTo(chipRects[j].x, chipRects[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(drawLines);
+  };
+  drawLines();
+
+  // 3. HERO 3D MOUSE EFFECTS
   const hero = document.querySelector('.hero');
   const tiltHeadline = document.querySelector('.tilt-hero');
   const brainAsset = document.querySelector('.hero-brain-asset');
@@ -36,11 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const { clientX, clientY } = e;
       const xPos = (clientX / window.innerWidth) - 0.5;
       const yPos = (clientY / window.innerHeight) - 0.5;
+      mouse.x = clientX;
+      mouse.y = clientY;
 
       if (tiltHeadline) {
         gsap.to(tiltHeadline, {
-          rotateY: xPos * 20,
-          rotateX: -yPos * 20,
+          rotateY: xPos * 15,
+          rotateX: -yPos * 15,
           duration: 0.6,
           ease: 'power2.out'
         });
@@ -48,16 +99,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (brainAsset) {
         gsap.to(brainAsset, {
-          x: xPos * 50,
-          y: yPos * 50,
+          x: xPos * 40,
+          y: yPos * 40,
+          scale: 1.05,
           duration: 0.8,
           ease: 'power2.out'
         });
       }
+
+      // Chip micro-movement
+      chips.forEach((chip, i) => {
+        const offset = (i % 3 + 1) * 10;
+        gsap.to(chip, {
+          x: xPos * offset,
+          y: yPos * offset,
+          duration: 0.4 + (i * 0.05),
+          ease: 'power2.out'
+        });
+      });
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      gsap.to(brainAsset, { x: 0, y: 0, scale: 1, duration: 1 });
+      gsap.to(tiltHeadline, { rotateX: 0, rotateY: 0, duration: 1 });
+      chips.forEach(chip => gsap.to(chip, { x: 0, y: 0, duration: 1 }));
     });
   }
 
-  // 3. VIDEO SCRUBBING
+  // 4. VIDEO SCRUBBING
   const video = document.getElementById('scrubVideo');
   if (video) {
     const initVideoScrub = () => {
@@ -92,9 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 4. PARALLAX LAYERS
+  // 5. PARALLAX LAYERS
   gsap.utils.toArray('.parallax-layer').forEach(layer => {
-    if (layer.classList.contains('hero-brain-asset')) return; // Handled by mouse parallax
     const speed = layer.dataset.speed || 0.1;
     gsap.to(layer, {
       yPercent: -20 * speed,
@@ -105,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. SVG LINE DRAW
+  // 6. SVG LINE DRAW
   const path = document.querySelector('.timeline-path');
   if (path) {
     const len = path.getTotalLength();
@@ -118,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. IMAGE CLIP REVEAL
+  // 7. IMAGE CLIP REVEAL
   gsap.utils.toArray('.project-card').forEach(card => {
     const img = card.querySelector('.project-img');
     if (img) {
@@ -130,14 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .from(card, { clipPath: 'inset(100% 0% 0% 0%)', ease: 'power2.out' })
       .to(img, { scale: 1, ease: 'power2.out' }, 0);
-    }
-  });
-
-  // 7. FOOTER REVEAL
-  gsap.from('.footer-big-text', {
-    letterSpacing: '0.01em', y: 100, opacity: 0,
-    scrollTrigger: {
-      trigger: '.footer-big-text', start: 'top 95%', end: 'top 60%', scrub: 1,
     }
   });
 
