@@ -118,6 +118,26 @@
     .path-card.active .path-info p {
       color: var(--bone);
     }
+    .chip-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .chip {
+      padding: 0.8rem 1.5rem;
+      border: 1px solid rgba(240,237,230,0.15);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      cursor: none;
+      transition: all 0.3s;
+    }
+    .chip.active {
+      background: var(--accent);
+      color: var(--ink);
+      border-color: var(--accent);
+    }
   </style>
 </head>
 <body>
@@ -162,20 +182,42 @@
       <div class="form-group">
         <label>CHOOSE YOUR PATH</label>
         <div class="path-selector" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
-          <div class="path-card active" data-type="AI">
+          <div class="path-card active" data-path="AI">
             <img src="assets/core-ai.png" alt="AI Path">
             <div class="path-info">
               <h3>AI PRODUCT</h3>
               <p>LLMs, Neural Nets, Automation</p>
             </div>
           </div>
-          <div class="path-card" data-type="DEV">
+          <div class="path-card" data-path="DEV">
             <img src="assets/core-dev.png" alt="Dev Path">
             <div class="path-info">
               <h3>FULLSTACK</h3>
               <p>Web Apps, SaaS, Scalable Platforms</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- CONDITIONAL AI QUESTIONS -->
+      <div id="aiOptions" class="form-group conditional-group">
+        <label>AI FOCUS</label>
+        <div class="chip-selector">
+          <div class="chip active">COMPUTER VISION</div>
+          <div class="chip">WORKFLOW AUTOMATION</div>
+          <div class="chip">LLM / CHATBOT</div>
+          <div class="chip">PREDICTIVE ANALYTICS</div>
+        </div>
+      </div>
+
+      <!-- CONDITIONAL DEV QUESTIONS -->
+      <div id="devOptions" class="form-group conditional-group" style="display: none;">
+        <label>PRODUCT TYPE</label>
+        <div class="chip-selector">
+          <div class="chip active">E-COMMERCE</div>
+          <div class="chip">SAAS PLATFORM</div>
+          <div class="chip">INTERNAL DASHBOARD</div>
+          <div class="chip">MARKETPLACE</div>
         </div>
       </div>
       
@@ -218,6 +260,28 @@
       card.addEventListener('click', () => {
         document.querySelectorAll('.path-card').forEach(c => c.classList.remove('active'));
         card.classList.add('active');
+        
+        const path = card.dataset.path;
+        const aiGroup = document.getElementById('aiOptions');
+        const devGroup = document.getElementById('devOptions');
+        
+        if (path === 'AI') {
+          aiGroup.style.display = 'block';
+          devGroup.style.display = 'none';
+          gsap.from(aiGroup, { opacity: 0, y: 20, duration: 0.5 });
+        } else {
+          aiGroup.style.display = 'none';
+          devGroup.style.display = 'block';
+          gsap.from(devGroup, { opacity: 0, y: 20, duration: 0.5 });
+        }
+      });
+    });
+
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const parent = chip.parentElement;
+        parent.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
       });
     });
 
