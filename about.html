@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — BuiltByAI Portfolio</title>
+  <link rel="icon" href="assets/ASSET 6 — FaviconLogo Mark.png">
+  
+  <!-- CDNs -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@200;300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NOISE FILTER -->
+  <div class="noise-overlay"></div>
+  <svg style="display:none;">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </svg>
+
+  <!-- CURSOR -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"><span class="ring-label"></span></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/ASSET 6 — FaviconLogo Mark.png" alt="Logo">
+      <span>BuiltByAI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start a Project</a>
+  </nav>
+
+  <main style="padding: 15rem 4rem 10rem;">
+    <section style="max-width: 1000px;">
+      <span style="font-family: var(--mono); color: var(--accent); font-size: 0.8rem; letter-spacing: 0.2em;">OUR STORY</span>
+      <h1 style="font-family: var(--bebas); font-size: 7rem; line-height: 0.9; margin-top: 2rem;">WE ARE THE<br>ARCHITECTS OF<br>INTELLIGENCE</h1>
+      <p style="font-size: 1.5rem; color: var(--muted); margin-top: 4rem; line-height: 1.6; font-weight: 300;">
+        BuiltByAI was founded on a simple principle: technology should feel like magic. We combine deep technical expertise in AI and fullstack engineering with a cinematic approach to design.
+      </p>
+    </section>
+
+    <section style="margin-top: 15rem;">
+      <h2 style="font-family: var(--bebas); font-size: 4rem; margin-bottom: 5rem;">MEET THE COLLECTIVE</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+        <div class="tilt-card" style="background: var(--muted2); aspect-ratio: 3/4; display: flex; align-items: flex-end; padding: 2rem; border: 1px solid var(--muted2);">
+          <div class="tilt-shine"></div>
+          <div>
+            <h3 style="font-family: var(--bebas); font-size: 1.5rem;">ALEX RIVERA</h3>
+            <span style="font-family: var(--mono); color: var(--accent); font-size: 0.6rem;">FOUNDER & AI ARCHITECT</span>
+          </div>
+        </div>
+        <div class="tilt-card" style="background: var(--muted2); aspect-ratio: 3/4; display: flex; align-items: flex-end; padding: 2rem; border: 1px solid var(--muted2);">
+          <div class="tilt-shine"></div>
+          <div>
+            <h3 style="font-family: var(--bebas); font-size: 1.5rem;">SARAH CHEN</h3>
+            <span style="font-family: var(--mono); color: var(--accent); font-size: 0.6rem;">LEAD FULLSTACK</span>
+          </div>
+        </div>
+        <div class="tilt-card" style="background: var(--muted2); aspect-ratio: 3/4; display: flex; align-items: flex-end; padding: 2rem; border: 1px solid var(--muted2);">
+          <div class="tilt-shine"></div>
+          <div>
+            <h3 style="font-family: var(--bebas); font-size: 1.5rem;">MARCUS VOGT</h3>
+            <span style="font-family: var(--mono); color: var(--accent); font-size: 0.6rem;">DATA SCIENTIST</span>
+          </div>
+        </div>
+        <div class="tilt-card" style="background: var(--muted2); aspect-ratio: 3/4; display: flex; align-items: flex-end; padding: 2rem; border: 1px solid var(--muted2);">
+          <div class="tilt-shine"></div>
+          <div>
+            <h3 style="font-family: var(--bebas); font-size: 1.5rem;">ELENA ROSSI</h3>
+            <span style="font-family: var(--mono); color: var(--accent); font-size: 0.6rem;">UI/UX DIRECTOR</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-top: 15rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; text-align: center;">
+      <div>
+        <span class="stat-num" style="font-family: var(--bebas); font-size: 6rem; color: var(--accent);">5</span>
+        <span style="display: block; font-family: var(--mono); font-size: 0.8rem; color: var(--muted);">YEARS IN AI</span>
+      </div>
+      <div>
+        <span class="stat-num" style="font-family: var(--bebas); font-size: 6rem; color: var(--accent);">120</span>
+        <span style="display: block; font-family: var(--mono); font-size: 0.8rem; color: var(--muted);">PROJECTS</span>
+      </div>
+      <div>
+        <span class="stat-num" style="font-family: var(--bebas); font-size: 6rem; color: var(--accent);">40</span>
+        <span style="display: block; font-family: var(--mono); font-size: 0.8rem; color: var(--muted);">PARTNERS</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <script src="js/cursor.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

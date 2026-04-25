@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — BuiltByAI Portfolio</title>
+  <link rel="icon" href="assets/ASSET 6 — FaviconLogo Mark.png">
+  
+  <!-- CDNs -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@200;300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-form {
+      max-width: 800px;
+      margin: 15rem auto 10rem;
+    }
+    .form-group {
+      margin-bottom: 4rem;
+      position: relative;
+    }
+    .form-group label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(240,237,230,0.15);
+      padding: 1rem 0;
+      color: var(--bone);
+      font-family: var(--dm);
+      font-size: 2rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-bottom-color: var(--accent);
+    }
+    .type-selector {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .type-btn {
+      padding: 1rem 2rem;
+      border: 1px solid rgba(240,237,230,0.15);
+      background: transparent;
+      color: var(--bone);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      cursor: none;
+      transition: all 0.3s;
+    }
+    .type-btn.active {
+      background: var(--accent);
+      color: var(--ink);
+      border-color: var(--accent);
+    }
+    .budget-slider-wrap {
+      margin-top: 2rem;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      background: rgba(240,237,230,0.1);
+      height: 4px;
+      border-radius: 2px;
+      cursor: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NOISE FILTER -->
+  <div class="noise-overlay"></div>
+  <svg style="display:none;">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </svg>
+
+  <!-- CURSOR -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"><span class="ring-label"></span></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/ASSET 6 — FaviconLogo Mark.png" alt="Logo">
+      <span>BuiltByAI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start a Project</a>
+  </nav>
+
+  <main class="contact-form">
+    <h1 style="font-family: var(--bebas); font-size: 8rem; line-height: 0.9; margin-bottom: 6rem;">LET'S BUILD<br>SOMETHING<br>LEGENDARY.</h1>
+    
+    <form id="projectForm">
+      <div class="form-group">
+        <label>YOUR NAME</label>
+        <input type="text" placeholder="John Doe" required>
+      </div>
+      
+      <div class="form-group">
+        <label>PROJECT TYPE</label>
+        <div class="type-selector">
+          <button type="button" class="type-btn active">AI AGENT</button>
+          <button type="button" class="type-btn">FULLSTACK APP</button>
+          <button type="button" class="type-btn">AI + DEV</button>
+          <button type="button" class="type-btn">RAPID SPRINT</button>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>ESTIMATED BUDGET (USD)</label>
+        <div class="budget-slider-wrap">
+          <input type="range" min="5000" max="100000" step="5000" value="25000" id="budgetRange">
+          <div style="display: flex; justify-content: space-between; margin-top: 1rem; font-family: var(--mono); font-size: 0.8rem;">
+            <span>$5k</span>
+            <span id="budgetValue" style="color: var(--accent); font-size: 1.2rem;">$25,000</span>
+            <span>$100k+</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>MESSAGE</label>
+        <textarea rows="3" placeholder="Tell us about your vision..."></textarea>
+      </div>
+      
+      <button type="submit" class="btn-primary" style="width: 100%; padding: 2rem;">SEND INQUIRY</button>
+    </form>
+  </main>
+
+  <div id="successOverlay" style="position: fixed; inset: 0; background: var(--accent); z-index: 3000; display: none; align-items: center; justify-content: center; text-align: center;">
+    <h2 style="font-family: var(--bebas); font-size: 10vw; color: var(--ink);">MESSAGE RECEIVED</h2>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <script src="js/cursor.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/animations.js"></script>
+  
+  <script>
+    // FORM LOGIC
+    document.querySelectorAll('.type-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    const budgetRange = document.getElementById('budgetRange');
+    const budgetValue = document.getElementById('budgetValue');
+    budgetRange.addEventListener('input', (e) => {
+      budgetValue.textContent = `$${parseInt(e.target.value).toLocaleString()}`;
+    });
+
+    document.getElementById('projectForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const overlay = document.getElementById('successOverlay');
+      overlay.style.display = 'flex';
+      gsap.from(overlay, { yPercent: 100, duration: 1, ease: 'power4.inOut' });
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

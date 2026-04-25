@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — BuiltByAI Portfolio</title>
+  <link rel="icon" href="assets/ASSET 6 — FaviconLogo Mark.png">
+  
+  <!-- CDNs -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@200;300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { --accent: var(--orange); }
+    .services-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 10rem 4rem;
+      gap: 5rem;
+    }
+    .services-left {
+      height: fit-content;
+      position: sticky;
+      top: 10rem;
+    }
+    .service-detail-card {
+      background: var(--muted2);
+      border: 1px solid var(--muted2);
+      padding: 4rem;
+      margin-bottom: 5rem;
+      border-radius: 20px;
+    }
+    .service-detail-card h3 {
+      font-family: var(--bebas);
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body class="services-page">
+
+  <!-- NOISE FILTER -->
+  <div class="noise-overlay"></div>
+  <svg style="display:none;">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </svg>
+
+  <!-- CURSOR -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"><span class="ring-label"></span></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/ASSET 6 — FaviconLogo Mark.png" alt="Logo">
+      <span>BuiltByAI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start a Project</a>
+  </nav>
+
+  <main class="services-container">
+    <div class="services-left">
+      <span style="font-family: var(--mono); color: var(--accent); font-size: 0.8rem; letter-spacing: 0.2em;">WHAT WE DO</span>
+      <h1 style="font-family: var(--bebas); font-size: 8rem; line-height: 0.9; margin-top: 1rem;">OUR<br>CAPABILITIES</h1>
+    </div>
+    
+    <div class="services-right">
+      <div class="service-detail-card">
+        <h3>AI INTEGRATION</h3>
+        <p style="color: var(--muted); line-height: 1.8;">We don't just add AI; we build intelligence into your core workflow. Custom LLM training, RAG pipelines, and autonomous agent orchestration.</p>
+        <ul style="margin-top: 2rem; color: var(--accent); font-family: var(--mono); list-style: none;">
+          <li>• CUSTOM LLMS</li>
+          <li>• VECTOR DATABASES</li>
+          <li>• AGENTIC WORKFLOWS</li>
+        </ul>
+      </div>
+      
+      <div class="service-detail-card">
+        <h3>FULLSTACK DEV</h3>
+        <p style="color: var(--muted); line-height: 1.8;">High-performance applications built for speed and scale. We specialize in Next.js, Node.js, and globally distributed architectures.</p>
+        <ul style="margin-top: 2rem; color: var(--accent); font-family: var(--mono); list-style: none;">
+          <li>• NEXT.JS / REACT</li>
+          <li>• TYPESCRIPT</li>
+          <li>• SERVERLESS ARCH</li>
+        </ul>
+      </div>
+      
+      <div class="service-detail-card">
+        <h3>PRODUCT DESIGN</h3>
+        <p style="color: var(--muted); line-height: 1.8;">Cinematic user experiences that bridge the gap between human and machine. We focus on dark mode, immersive UI, and smooth motion.</p>
+        <ul style="margin-top: 2rem; color: var(--accent); font-family: var(--mono); list-style: none;">
+          <li>• INTERFACE DESIGN</li>
+          <li>• MOTION SYSTEMS</li>
+          <li>• PROTOTYPING</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <script src="js/cursor.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

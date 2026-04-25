@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuiltByAI — Cinematic AI & Fullstack Agency</title>
+  <link rel="icon" href="assets/ASSET 6 — FaviconLogo Mark.png">
+  
+  <!-- CDNs -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@200;300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NOISE FILTER -->
+  <div class="noise-overlay"></div>
+  <svg style="display:none;">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </svg>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-logo">BUILT<span>BY</span>AI</div>
+    <div class="loader-counter" id="loaderCount">0</div>
+    <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"><span class="ring-label"></span></div>
+
+  <!-- SPOTLIGHT -->
+  <div class="spotlight"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/ASSET 6 — FaviconLogo Mark.png" alt="Logo">
+      <span>BuiltByAI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start a Project</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <img src="assets/ASSET 4 — AbstractAI BrainHero Visual.png" class="hero-brain-asset parallax-layer" data-speed="0.2" alt="Brain Visual">
+    
+    <!-- FLOATING CHIPS (12 total) -->
+    <div class="float-chip" style="top: 20%; left: 10%;">Neural Networks</div>
+    <div class="float-chip" style="top: 15%; left: 70%;">LLM Integration</div>
+    <div class="float-chip" style="top: 40%; left: 85%;">Fullstack Dev</div>
+    <div class="float-chip" style="top: 60%; left: 5%;">React & Next.js</div>
+    <div class="float-chip" style="top: 80%; left: 20%;">Generative AI</div>
+    <div class="float-chip" style="top: 30%; left: 75%;">UI/UX Design</div>
+    <div class="float-chip" style="top: 10%; left: 40%;">Scalable Systems</div>
+    <div class="float-chip" style="top: 50%; left: 40%;">Cloud Architecture</div>
+    <div class="float-chip" style="top: 70%; left: 80%;">Automation</div>
+    <div class="float-chip" style="top: 85%; left: 60%;">Python</div>
+    <div class="float-chip" style="top: 25%; left: 25%;">API First</div>
+    <div class="float-chip" style="top: 45%; left: 15%;">Real-time</div>
+
+    <div class="hero-content">
+      <h1 class="hero-headline tilt-hero">
+        <div>WE BUILD</div>
+        <div>THE <span style="color:var(--accent)">FUTURE</span></div>
+        <div style="opacity: 0.1;">WITH AI</div>
+      </h1>
+      <div class="hero-actions">
+        <a href="work.html" class="btn-primary">View Projects</a>
+        <a href="services.html" class="btn-ghost">Our Services</a>
+      </div>
+    </div>
+    
+    <div class="scroll-hint" style="bottom: 1rem; right: 4rem; left: auto; transform: none;">
+      <span>Scroll</span>
+      <div class="scroll-line" style="height: 40px;"></div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap" style="background: var(--accent); padding: 1rem 0; overflow: hidden; white-space: nowrap;">
+    <div class="ticker-content" style="display: inline-block; animation: ticker 20s linear infinite; font-family: var(--bebas); font-size: 2rem; color: var(--ink);">
+      &nbsp;• AI FIRST • FULLSTACK SOLUTIONS • STRATEGIC DESIGN • NEURAL NETWORKS • SCALE FAST • SHIP WEEKLY • AI FIRST • FULLSTACK SOLUTIONS • STRATEGIC DESIGN • NEURAL NETWORKS • SCALE FAST • SHIP WEEKLY
+    </div>
+  </div>
+  <style>
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  </style>
+
+  <!-- STATS -->
+  <section class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num">50</span>
+      <span class="stat-label">AI Models Deployed</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">120</span>
+      <span class="stat-label">Projects Shipped</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">15</span>
+      <span class="stat-label">Awards Won</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">98</span>
+      <span class="stat-label">Client Satisfaction %</span>
+    </div>
+  </section>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="services-section" id="services" style="padding: 10rem 4rem;">
+    <h2 style="font-family: var(--bebas); font-size: 6rem; margin-bottom: 4rem;">OUR CORE</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+      <div class="service-card" style="padding: 3rem; background: var(--muted2); border: 1px solid var(--muted2);">
+        <h3 style="font-family: var(--bebas); font-size: 2rem; margin-bottom: 1rem;">AI PRODUCTS</h3>
+        <p style="color: var(--muted); font-size: 0.9rem;">From custom LLMs to computer vision solutions that scale with your business.</p>
+      </div>
+      <div class="service-card" style="padding: 3rem; background: var(--muted2); border: 1px solid var(--muted2);">
+        <h3 style="font-family: var(--bebas); font-size: 2rem; margin-bottom: 1rem;">FULLSTACK</h3>
+        <p style="color: var(--muted); font-size: 0.9rem;">Robust, lightning-fast web applications built with the latest modern frameworks.</p>
+      </div>
+      <div class="service-card" style="padding: 3rem; background: var(--muted2); border: 1px solid var(--muted2);">
+        <h3 style="font-family: var(--bebas); font-size: 2rem; margin-bottom: 1rem;">STRATEGY</h3>
+        <p style="color: var(--muted); font-size: 0.9rem;">Technical blueprints and AI roadmaps to transform your vision into reality.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO SCRUB -->
+  <section class="video-scrub-section">
+    <div class="scrub-sticky">
+      <video id="scrubVideo" muted playsinline preload="auto">
+        <source src="assets/process-animation.mp4" type="video/mp4">
+      </video>
+      <div class="scrub-overlay-text">
+        <div class="scrub-step" data-step="1">
+          <span class="step-label">01</span>
+          <h3>Discovery</h3>
+          <p>We map your vision to a technical blueprint</p>
+        </div>
+        <div class="scrub-step" data-step="2">
+          <span class="step-label">02</span>
+          <h3>Build</h3>
+          <p>Weekly shipping, zero black boxes</p>
+        </div>
+        <div class="scrub-step" data-step="3">
+          <span class="step-label">03</span>
+          <h3>Launch</h3>
+          <p>Live, monitored, documented</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED WORK -->
+  <section class="work-section" id="work" style="padding: 10rem 4rem;">
+    <h2 style="font-family: var(--bebas); font-size: 6rem; margin-bottom: 4rem;">SELECTED WORK</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+      <div class="project-card tilt-card" style="background: linear-gradient(135deg, #111, #050507); border: 1px solid var(--muted2); border-radius: 20px; padding: 4rem; position: relative;">
+        <div class="tilt-shine"></div>
+        <img src="assets/ASSET 2 — Project Mockup (AI Product).png" class="project-img" alt="Project 1" style="width: 100%; filter: drop-shadow(0 40px 80px rgba(184,255,87,0.1));">
+        <div style="margin-top: 2rem;">
+          <span style="font-family: var(--mono); color: var(--accent); font-size: 0.7rem;">AI PRODUCT</span>
+          <h3 style="font-family: var(--bebas); font-size: 2.5rem;">NEURAL DASHBOARD</h3>
+        </div>
+      </div>
+      <div class="project-card tilt-card" style="background: linear-gradient(135deg, #111, #050507); border: 1px solid var(--muted2); border-radius: 20px; padding: 4rem; position: relative; transform: translateY(-40px);">
+        <div class="tilt-shine"></div>
+        <img src="assets/ASSET 2 — Project Mockup.png" class="project-img" alt="Project 2" style="width: 100%; filter: drop-shadow(0 40px 80px rgba(87,200,255,0.1)); transform: translate(-20px, -20px);">
+        <div style="margin-top: 2rem;">
+          <span style="font-family: var(--mono); color: var(--blue); font-size: 0.7rem;">SAAS PLATFORM</span>
+          <h3 style="font-family: var(--bebas); font-size: 2.5rem;">CLOUD SYNC</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS TIMELINE -->
+  <section class="process-section" style="padding: 10rem 4rem; position: relative;">
+    <h2 style="font-family: var(--bebas); font-size: 6rem; text-align: center; margin-bottom: 6rem;">OUR FLOW</h2>
+    <div style="position: relative; max-width: 1000px; margin: 0 auto;">
+      <svg viewBox="0 0 1000 200" style="width: 100%; height: auto; fill: none; stroke: var(--accent); stroke-width: 2;">
+        <path class="timeline-path" d="M0,100 C200,100 300,50 500,100 C700,150 800,100 1000,100" />
+      </svg>
+      <div style="display: flex; justify-content: space-between; margin-top: -40px;">
+        <div style="text-align: center; width: 200px;">
+          <div style="width: 20px; height: 20px; background: var(--accent); border-radius: 50%; margin: 0 auto 1rem;"></div>
+          <h4 style="font-family: var(--bebas); font-size: 1.5rem;">Audit</h4>
+        </div>
+        <div style="text-align: center; width: 200px;">
+          <div style="width: 20px; height: 20px; background: var(--accent); border-radius: 50%; margin: 0 auto 1rem;"></div>
+          <h4 style="font-family: var(--bebas); font-size: 1.5rem;">Build</h4>
+        </div>
+        <div style="text-align: center; width: 200px;">
+          <div style="width: 20px; height: 20px; background: var(--accent); border-radius: 50%; margin: 0 auto 1rem;"></div>
+          <h4 style="font-family: var(--bebas); font-size: 1.5rem;">Deploy</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section" style="padding: 10rem 4rem;">
+    <h2 style="font-family: var(--bebas); font-size: 6rem; margin-bottom: 4rem;">THE TEAM</h2>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+      <div class="tilt-card" style="background: var(--muted2); aspect-ratio: 3/4; display: flex; align-items: flex-end; padding: 2rem; border: 1px solid var(--muted2);">
+        <div>
+          <h3 style="font-family: var(--bebas); font-size: 1.5rem;">ALEX RIVERA</h3>
+          <span style="font-family: var(--mono); color: var(--accent); font-size: 0.6rem;">FOUNDER & AI ARCHITECT</span>
+        </div>
+      </div>
+      <div class="tilt-card" style="background: var(--muted2); aspect-ratio: 3/4; display: flex; align-items: flex-end; padding: 2rem; border: 1px solid var(--muted2);">
+        <div>
+          <h3 style="font-family: var(--bebas); font-size: 1.5rem;">SARAH CHEN</h3>
+          <span style="font-family: var(--mono); color: var(--accent); font-size: 0.6rem;">LEAD FULLSTACK</span>
+        </div>
+      </div>
+      <div class="tilt-card" style="background: var(--muted2); aspect-ratio: 3/4; display: flex; align-items: flex-end; padding: 2rem; border: 1px solid var(--muted2);">
+        <div>
+          <h3 style="font-family: var(--bebas); font-size: 1.5rem;">MARCUS VOGT</h3>
+          <span style="font-family: var(--mono); color: var(--accent); font-size: 0.6rem;">DATA SCIENTIST</span>
+        </div>
+      </div>
+      <div class="tilt-card" style="background: var(--muted2); aspect-ratio: 3/4; display: flex; align-items: flex-end; padding: 2rem; border: 1px solid var(--muted2);">
+        <div>
+          <h3 style="font-family: var(--bebas); font-size: 1.5rem;">ELENA ROSSI</h3>
+          <span style="font-family: var(--mono); color: var(--accent); font-size: 0.6rem;">UI/UX DIRECTOR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="contact-section" style="padding: 10rem 4rem; text-align: center; border-top: 1px solid var(--muted2);">
+    <h2 style="font-family: var(--bebas); font-size: 8vw; line-height: 1;">READY TO SCALE?</h2>
+    <p style="color: var(--muted); max-width: 500px; margin: 2rem auto;">Join the next generation of AI-powered businesses.</p>
+    <a href="contact.html" class="btn-primary" style="margin-top: 2rem;">Get in touch</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-big-text">BUILTBYAI</span>
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; color: var(--muted); font-family: var(--mono); font-size: 0.7rem;">
+      <div>© 2026 BUILTBYAI AGENCY</div>
+      <div>LOCATIONS: NYC / LONDON / REMOTE</div>
+      <div>INSTAGRAM / TWITTER / LINKEDIN</div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <script src="js/loader.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

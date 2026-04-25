@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — BuiltByAI Portfolio</title>
+  <link rel="icon" href="assets/ASSET 6 — FaviconLogo Mark.png">
+  
+  <!-- CDNs -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@200;300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .h-scroll-section {
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      background: var(--ink);
+    }
+    .cards-track {
+      display: flex;
+      gap: 5rem;
+      padding: 0 10rem;
+      will-change: transform;
+    }
+    .work-card {
+      min-width: 600px;
+      height: 70vh;
+      background: var(--muted2);
+      border: 1px solid var(--muted2);
+      border-radius: 20px;
+      padding: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s;
+    }
+    .work-card:hover { border-color: var(--accent); }
+    .work-card img {
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      width: 80%;
+      filter: drop-shadow(0 40px 80px rgba(184,255,87,0.1));
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .work-card:hover img { transform: scale(1.05) rotate(2deg); }
+  </style>
+</head>
+<body>
+
+  <!-- NOISE FILTER -->
+  <div class="noise-overlay"></div>
+  <svg style="display:none;">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </svg>
+
+  <!-- CURSOR -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"><span class="ring-label"></span></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/ASSET 6 — FaviconLogo Mark.png" alt="Logo">
+      <span>BuiltByAI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="work.html" class="active">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="contact.html" class="nav-cta">Start a Project</a>
+  </nav>
+
+  <main>
+    <section class="h-scroll-section">
+      <div class="cards-track">
+        <div class="work-card project-card tilt-card">
+          <img src="assets/ASSET 2 — Project Mockup (AI Product).png" alt="Project 1">
+          <div style="z-index: 2;">
+            <span style="font-family: var(--mono); color: var(--accent); font-size: 0.7rem;">AI PRODUCT</span>
+            <h2 style="font-family: var(--bebas); font-size: 4rem;">NEURAL SYNC</h2>
+          </div>
+        </div>
+        <div class="work-card project-card tilt-card">
+          <img src="assets/ASSET 2 — Project Mockup.png" alt="Project 2">
+          <div style="z-index: 2;">
+            <span style="font-family: var(--mono); color: var(--blue); font-size: 0.7rem;">FINTECH</span>
+            <h2 style="font-family: var(--bebas); font-size: 4rem;">CRYPTO ANALYTICS</h2>
+          </div>
+        </div>
+        <div class="work-card project-card tilt-card">
+          <img src="assets/ASSET 2 — Project Mockup (AI Product).png" alt="Project 3" style="filter: hue-rotate(90deg);">
+          <div style="z-index: 2;">
+            <span style="font-family: var(--mono); color: var(--orange); font-size: 0.7rem;">ECOMMERCE</span>
+            <h2 style="font-family: var(--bebas); font-size: 4rem;">SMART RETAIL</h2>
+          </div>
+        </div>
+        <div class="work-card project-card tilt-card">
+          <img src="assets/ASSET 2 — Project Mockup.png" alt="Project 4" style="filter: hue-rotate(180deg);">
+          <div style="z-index: 2;">
+            <span style="font-family: var(--mono); color: var(--accent); font-size: 0.7rem;">AI AGENT</span>
+            <h2 style="font-family: var(--bebas); font-size: 4rem;">AUTONOMOUS PRO</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <script src="js/cursor.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/animations.js"></script>
+  
+  <script>
+    // PAGE SPECIFIC: HORIZONTAL SCROLL
+    const track = document.querySelector('.cards-track');
+    const cards = gsap.utils.toArray('.work-card');
+    
+    gsap.to(track, {
+      x: () => -(track.scrollWidth - window.innerWidth),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.h-scroll-section',
+        pin: true,
+        scrub: 1,
+        end: () => `+=${track.scrollWidth}`
+      }
+    });
+
+    cards.forEach(card => {
+      gsap.from(card, {
+        scale: 0.8,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: card,
+          containerAnimation: gsap.getById('hScroll'), // Not using ID, using the tween above
+          start: 'left right',
+          end: 'left center',
+          scrub: true,
+        }
+      });
+    });
+  </script>
+</body>
+</html>
