@@ -613,7 +613,102 @@ footer {
   z-index: 1;
 }
 
+/* ── RESPONSIVE DESIGN ── */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.burger span {
+  width: 30px;
+  height: 2px;
+  background: var(--bone);
+  transition: all 0.3s ease;
+}
+
+.burger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.burger.open span:nth-child(2) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  clip-path: inset(0% 0% 100% 0%); /* Hidden by default */
+  pointer-events: none; /* JS will toggle this */
+}
+
+.mobile-menu ul {
+  list-style: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.mobile-menu a {
+  font-family: var(--bebas);
+  font-size: 3rem;
+  color: var(--bone);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.burger.open ~ .mobile-menu, .mobile-menu[style*="inset(0% 0% 0% 0%)"] {
+  pointer-events: all;
+}
+
+@media (max-width: 1024px) {
+  nav { padding: 1.5rem 2rem; }
+  .services-section > div { grid-template-columns: repeat(2, 1fr) !important; }
+  .work-section > div { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .stats-bar { padding: 4rem 2rem; flex-wrap: wrap; gap: 2rem; }
+  .stat-item { width: 40%; }
+}
+
 @media (max-width: 768px) {
+  /* Navigation */
+  .nav-links, .hide-on-mobile { display: none !important; }
+  .burger { display: flex; }
+  nav { padding: 1rem 1.5rem !important; }
+
+  /* Typography */
+  h2 { font-size: 4rem !important; }
+  .stats-bar { flex-direction: column; }
+  .stat-item { width: 100%; }
+
+  /* Sections */
+  .services-section { padding: 4rem 1.5rem !important; }
+  .services-section > div { grid-template-columns: 1fr !important; }
+  .work-section { padding: 4rem 1.5rem !important; }
+  .process-section { padding: 4rem 1.5rem !important; }
+  
+  .timeline-grid { grid-template-columns: 1fr !important; }
+  .process-step { max-width: 100%; text-align: left !important; align-items: flex-start !important; }
+  .timeline-svg { display: none; } /* Hide the drawing line on mobile as it usually breaks layout */
+
+  /* Hands */
   .left-hand { width: 85vw; }
   .right-hand { width: 75vw; }
+  .spark { width: 280px; height: 280px; filter: blur(30px); }
+  
+  /* Footer */
+  footer { padding: 2rem 1.5rem; }
+  .footer-big-text { font-size: 15vw; }
+  footer > div { flex-direction: column; gap: 1rem; align-items: flex-start !important; }
+  
+  .contact-section h2 { font-size: 15vw !important; }
+  .contact-section { padding: 6rem 1.5rem !important; }
 }
