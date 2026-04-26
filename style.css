@@ -538,7 +538,8 @@ footer {
   top: 50%;
   left: 0;
   transform-origin: right center;
-  will-change: transform;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
   z-index: 3;
   /* Mask to fade out the arm cut */
   -webkit-mask-image: linear-gradient(to right, transparent, black 25%);
@@ -553,7 +554,8 @@ footer {
   top: 50%;
   right: 0;
   transform-origin: left center;
-  will-change: transform;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
   z-index: 3;
   /* Mask to fade out the arm cut */
   -webkit-mask-image: linear-gradient(to left, transparent, black 25%);

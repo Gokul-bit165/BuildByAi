@@ -1,42 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   let count = 0;
   const counter = document.getElementById('loaderCount');
   const fill = document.getElementById('loaderFill');
   
-  const interval = setInterval(() => {
-    count += Math.floor(Math.random() * 8) + 2;
-    if (count >= 100) {
-      count = 100;
-      clearInterval(interval);
-      revealPage();
+  // Simulated progress for the first 80%
+  const progressInterval = setInterval(() => {
+    if (count < 85) {
+      count += Math.floor(Math.random() * 5) + 1;
+      updateLoader(count);
+    } else {
+      clearInterval(progressInterval);
+      // Finish to 100 on load
+      updateLoader(100);
+      setTimeout(revealPage, 500);
     }
-    if (counter) counter.textContent = count;
-    if (fill) fill.style.width = count + '%';
-  }, 40);
+  }, 100);
+
+  function updateLoader(val) {
+    if (counter) counter.textContent = Math.min(100, val);
+    if (fill) fill.style.width = Math.min(100, val) + '%';
+  }
 
   function revealPage() {
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({
+      onComplete: () => {
+        document.getElementById('loader').style.display = 'none';
+        ScrollTrigger.refresh();
+      }
+    });
     
     tl.to('#loader', {
       yPercent: -100,
       duration: 1.2,
-      ease: 'power4.inOut',
-      delay: 0.3
+      ease: 'expo.inOut'
     });
-    
-    tl.from('.hero-content', {
-      opacity: 0,
-      y: 60,
-      duration: 1,
-      ease: 'power4.out'
-    }, '-=0.6');
-
-    // Reveal hero brain visual
-    tl.to('.hero-brain-asset', {
-      opacity: 0.7,
-      scale: 1,
-      duration: 2,
-      ease: 'power2.out'
-    }, '-=1.5');
   }
 });

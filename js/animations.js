@@ -1,22 +1,32 @@
-// LENIS SMOOTH SCROLL
+// LENIS SMOOTH SCROLL OPTIMIZATION
 const lenis = new Lenis({
-  duration: 1.4,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  lerp: 0.06, // Even smoother follow
+  duration: 1.5,
   smoothWheel: true,
-  wheelMultiplier: 0.8,
+  wheelMultiplier: 1,
+  touchMultiplier: 2,
+  normalizeWheel: true,
 });
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Sync ScrollTrigger with Lenis
+lenis.on('scroll', ScrollTrigger.update);
 
 gsap.ticker.add((time) => {
   lenis.raf(time * 1000);
 });
-gsap.ticker.lagSmoothing(0);
-lenis.on('scroll', ScrollTrigger.update);
- 
+gsap.ticker.lagSmoothing(500, 33); // Prevent jumps on frame drops
+
  // Force scroll to top on refresh
+ window.onbeforeunload = function() { window.scrollTo(0, 0); };
  if ('scrollRestoration' in history) {
    history.scrollRestoration = 'manual';
  }
- window.scrollTo(0, 0);
 
 document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
