@@ -239,9 +239,10 @@ nav {
 .spline-wrapper {
   position: absolute;
   inset: 0;
-  width: 100%;
+  width: 110%; /* Extra width to accommodate the shift */
   height: 100%;
-  transform: scale(1.15); /* "Little zoomed" as requested */
+  left: -5%; /* Shifted left as requested */
+  transform: scale(1.15);
   transform-origin: center center;
 }
 
