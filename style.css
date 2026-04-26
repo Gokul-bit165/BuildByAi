@@ -225,6 +225,36 @@ nav {
   transition: width 0.1s linear;
 }
 
+/* STATS BAR */
+.stats-bar {
+  display: flex;
+  justify-content: space-around;
+  padding: 6rem 4rem;
+  background: #050507;
+  border-bottom: 1px solid rgba(240,237,230,0.05);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-num {
+  display: block;
+  font-family: var(--bebas);
+  font-size: 4.5rem;
+  color: var(--bone);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
 /* HERO */
 .hero {
   height: 100vh;
@@ -403,52 +433,7 @@ spline-viewer::part(logo) {
   100% { opacity: 0.3; transform: scaleY(0.8); transform-origin: top; }
 }
 
-/* VIDEO SCRUB SECTION */
-.video-scrub-section {
-  height: 400vh;
-  position: relative;
-}
 
-.scrub-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#scrubVideo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.scrub-overlay-text {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.scrub-step {
-  position: absolute;
-  text-align: center;
-  max-width: 600px;
-  opacity: 0;
-}
-
-.step-label {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--accent);
-  margin-bottom: 1rem;
-  display: block;
-}
 
 .scrub-step h3 {
   font-family: var(--bebas);
@@ -528,4 +513,105 @@ footer {
     background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(184,255,87,0.07) 0%, transparent 70%), #050507;
   }
   .float-chip { display: none; }
+}
+/* ── HANDS PINNED SECTION ── */
+.hands-section {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: #050507;
+}
+
+.hands-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-hand {
+  position: absolute;
+  width: 65vw;
+  max-width: 1000px;
+  height: auto;
+  top: 50%;
+  left: 0;
+  transform-origin: right center;
+  will-change: transform;
+  z-index: 3;
+  /* Mask to fade out the arm cut */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 25%);
+  mask-image: linear-gradient(to right, transparent, black 25%);
+}
+
+.right-hand {
+  position: absolute;
+  width: 55vw;
+  max-width: 800px;
+  height: auto;
+  top: 50%;
+  right: 0;
+  transform-origin: left center;
+  will-change: transform;
+  z-index: 3;
+  /* Mask to fade out the arm cut */
+  -webkit-mask-image: linear-gradient(to left, transparent, black 25%);
+  mask-image: linear-gradient(to left, transparent, black 25%);
+}
+
+/* ── Spark glow ── */
+.spark {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(255,255,230,1)       0%,
+    rgba(184,255,87,0.85)    28%,
+    rgba(184,255,87,0.2)     60%,
+    transparent              75%);
+  filter: blur(64px);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Ripple rings ── */
+.wave {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+  z-index: 9;
+}
+
+/* ── Background glow ── */
+.bg-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 47%,
+    rgba(184,255,87,0.25) 0%,
+    rgba(184,255,87,0.05) 50%,
+    transparent 80%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .left-hand { width: 85vw; }
+  .right-hand { width: 75vw; }
 }

@@ -156,90 +156,61 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   updateChips();
 
-  // 4. VIDEO SCRUBBING
-  const video = document.getElementById('scrubVideo');
-  if (video) {
-    const initVideoScrub = () => {
-      gsap.to(video, {
-        currentTime: video.duration,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.video-scrub-section',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1.5,
-          pin: '.scrub-sticky',
-          onUpdate: self => {
-            const p = self.progress;
-            const fill = document.getElementById('scrubFill');
-            if (fill) fill.style.width = (p * 100) + '%';
-            
-            const steps = document.querySelectorAll('.scrub-step');
-            const index = p < 0.33 ? 0 : (p < 0.66 ? 1 : 2);
-            steps.forEach((s, i) => {
-              s.classList.toggle('active', i === index);
-            });
-          }
-        }
-      });
-    };
+  // 9. HANDS CREATION ANIMATION (Cinematic & Balanced)
+  // Part A: Entry Movement (Starts as you scroll towards the section)
+  gsap.set('#leftHand', { x: '-80vw', y: '-50%', opacity: 0.3 });
+  gsap.set('#rightHand', { x: '80vw', y: '-50%', opacity: 0.3 });
 
-    if (video.readyState >= 1) {
-      initVideoScrub();
-    } else {
-      video.addEventListener('loadedmetadata', initVideoScrub);
-    }
-  }
-
-  // 5. PARALLAX LAYERS
-  gsap.utils.toArray('.parallax-layer').forEach(layer => {
-    const speed = layer.dataset.speed || 0.1;
-    gsap.to(layer, {
-      yPercent: -20 * speed,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: true,
-      }
-    });
-  });
-
-  // 6. SVG LINE DRAW
-  const path = document.querySelector('.timeline-path');
-  if (path) {
-    const len = path.getTotalLength();
-    gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-    gsap.to(path, {
-      strokeDashoffset: 0, ease: 'none',
-      scrollTrigger: {
-        trigger: '.process-section', start: 'top 60%', end: 'bottom 80%', scrub: 1,
-      }
-    });
-  }
-
-  // 7. IMAGE CLIP REVEAL
-  gsap.utils.toArray('.project-card').forEach(card => {
-    const img = card.querySelector('.project-img');
-    if (img) {
-      gsap.set(img, { scale: 1.2 });
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: card, start: 'top 85%', end: 'top 40%', scrub: 0.6,
-        }
-      })
-      .from(card, { clipPath: 'inset(100% 0% 0% 0%)', ease: 'power2.out' })
-      .to(img, { scale: 1, ease: 'power2.out' }, 0);
+  gsap.to('#leftHand', {
+    x: '-35vw',
+    opacity: 0.6,
+    scrollTrigger: {
+      trigger: '#handsSection',
+      start: 'top bottom',
+      end: 'top top',
+      scrub: 1,
     }
   });
 
-  // 8. COUNTERS
-  gsap.utils.toArray('.stat-num').forEach(el => {
-    const target = parseInt(el.innerText);
-    gsap.from({ val: 0 }, {
-      val: target, duration: 2, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 90%' },
-      onUpdate: function() {
-        el.textContent = Math.round(this.targets()[0].val);
-      }
-    });
+  gsap.to('#rightHand', {
+    x: '25vw',
+    opacity: 0.6,
+    scrollTrigger: {
+      trigger: '#handsSection',
+      start: 'top bottom',
+      end: 'top top',
+      scrub: 1,
+    }
   });
+
+  // Part B: The Pinned Touch Moment
+  const handsTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#handsSection',
+      start: 'top top',
+      end: '+=180%', 
+      pin: true,
+      scrub: 1,
+    }
+  });
+
+  handsTl
+    // Phase 1: Close in
+    .to('#leftHand', { x: '-22vw', opacity: 0.8, duration: 0.4, ease: 'power1.inOut' }, 0)
+    .to('#rightHand', { x: '12vw', opacity: 0.8, duration: 0.4, ease: 'power1.inOut' }, 0)
+
+    // Phase 2: Tension
+    .to('#leftHand', { x: '-18vw', scale: 1.02, duration: 0.2, ease: 'power1.out' }, 0.4)
+    .to('#rightHand', { x: '8vw', scale: 1.02, duration: 0.2, ease: 'power1.out' }, 0.4)
+
+    // Phase 3: Touch Moment
+    .to('#leftHand', { x: '-14.7vw', scale: 1.05, opacity: 1, duration: 0.1, ease: 'power4.in' }, 0.6)
+    .to('#rightHand', { x: '4.7vw', scale: 1.05, opacity: 1, duration: 0.1, ease: 'power4.in' }, 0.6)
+    .to('#spark', { opacity: 1, scale: 1.6, duration: 0.05, ease: 'expo.out' }, 0.6)
+    .to('#bgGlow', { opacity: 1, duration: 0.1 }, 0.6)
+
+    // Phase 4: Hold & Wave
+    .to('#spark', { scale: 2.5, opacity: 0.2, duration: 0.3 }, 0.7)
+    .fromTo('#wave1', { scale: 0, opacity: 0.8 }, { scale: 30, opacity: 0, duration: 0.3, ease: 'power2.out' }, 0.7)
+    .fromTo('#wave2', { scale: 0, opacity: 0.5 }, { scale: 50, opacity: 0, duration: 0.3, ease: 'power2.out' }, 0.75);
 });
