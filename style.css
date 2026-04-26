@@ -19,7 +19,7 @@
 }
 
 html {
-  scroll-behavior: initial; /* Lenis handles smoothing */
+  scroll-behavior: smooth; /* Enabled as per user request */
   overflow-x: hidden;
 }
 
@@ -227,15 +227,33 @@ nav {
 
 /* HERO */
 .hero {
-  min-height: 100vh;
+  height: 100vh;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: radial-gradient(ellipse 60% 50% at 70% 30%, rgba(184,255,87,0.07) 0%, transparent 60%),
-              radial-gradient(ellipse 80% 60% at 10% 80%, rgba(87,200,255,0.05) 0%, transparent 60%), 
-              #050507;
+  background: #050507;
+}
+
+.spline-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.15); /* "Little zoomed" as requested */
+  transform-origin: center center;
+}
+
+spline-viewer {
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Prevents Spline from "stucking" the scroll */
+}
+
+spline-viewer::part(watermark), 
+spline-viewer::part(logo) { 
+  display: none !important; 
 }
 
 .hero-brain-asset {
@@ -256,6 +274,17 @@ nav {
   max-width: 1200px;
 }
 
+.hero-eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  opacity: 0;
+}
+
 .hero-headline {
   font-family: var(--bebas);
   font-size: clamp(4rem, 12vw, 12rem);
@@ -266,6 +295,41 @@ nav {
 
 .hero-headline div {
   overflow: hidden;
+}
+
+.hero-headline .line-1, 
+.hero-headline .line-2 {
+  color: var(--bone);
+}
+
+.hero-headline .text-accent {
+  color: var(--accent);
+}
+
+.hero-headline .line-3 {
+  -webkit-text-stroke: 1px rgba(240,237,230,0.3);
+  color: transparent;
+  font-size: 0.72em;
+}
+
+.hero-headline div {
+  overflow: hidden;
+}
+
+.hero-subtext {
+  font-family: var(--dm);
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  opacity: 0;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  opacity: 0;
 }
 
 /* SPOTLIGHT */
@@ -280,27 +344,62 @@ nav {
 
 .float-chip {
   position: absolute;
-  padding: 0.5rem 1rem;
-  background: rgba(240,237,230,0.04);
-  border: 1px solid rgba(240,237,230,0.1);
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  border: 1px solid rgba(184,255,87,0.15);
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: rgba(184,255,87,0.3);
   white-space: nowrap;
   pointer-events: auto;
-  z-index: 3;
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.float-chip.blue {
+  border-color: rgba(87,200,255,0.15);
+  color: rgba(87,200,255,0.3);
 }
 
 .float-chip:hover {
   background: var(--accent);
   color: var(--ink);
-  transform: scale(1.1) translateY(-5px);
-  box-shadow: 0 0 30px var(--accent);
+  border-color: var(--accent);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   z-index: 10;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scroll-pulse 2s infinite;
+}
+
+.scroll-text {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@keyframes scroll-pulse {
+  0% { opacity: 0.3; transform: scaleY(0.8); transform-origin: top; }
+  50% { opacity: 0.8; transform: scaleY(1.2); transform-origin: top; }
+  100% { opacity: 0.3; transform: scaleY(0.8); transform-origin: top; }
 }
 
 /* VIDEO SCRUB SECTION */
@@ -420,6 +519,12 @@ footer {
 @media (max-width: 768px) {
   nav { padding: 1.5rem 2rem; }
   .nav-links { display: none; }
-  .hero-headline { font-size: 4rem; }
+  .hero-headline { font-size: 3.5rem; }
   .footer-big-text { font-size: 20vw; }
+  
+  spline-viewer { display: none; }
+  .hero {
+    background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(184,255,87,0.07) 0%, transparent 70%), #050507;
+  }
+  .float-chip { display: none; }
 }

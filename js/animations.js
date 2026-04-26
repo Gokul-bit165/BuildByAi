@@ -11,120 +11,148 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0);
 lenis.on('scroll', ScrollTrigger.update);
+ 
+ // Force scroll to top on refresh
+ if ('scrollRestoration' in history) {
+   history.scrollRestoration = 'manual';
+ }
+ window.scrollTo(0, 0);
 
 document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
 
-  // 1. HERO SPLIT TEXT
-  const heroHeadlines = document.querySelectorAll('.hero-headline div');
-  heroHeadlines.forEach(line => {
-    const text = line.innerText;
-    line.innerHTML = text.split('').map(char => `<span class="char">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
-    gsap.from(line.querySelectorAll('.char'), {
-      y: 120, opacity: 0, rotateX: -90, stagger: 0.02,
-      duration: 1.2, ease: 'power4.out', delay: 0.8
+  // 1. SPLINE ZOOM & PARALLAX ENTRANCE
+  const splineWrapper = document.querySelector('.spline-wrapper');
+  if (splineWrapper) {
+    // Entrance zoom
+    gsap.from(splineWrapper, {
+      scale: 1.3,
+      duration: 2.5,
+      ease: 'power2.out',
+      delay: 0.5
+    });
+
+    // Scroll parallax enhancement (Subtle scale instead of movement to avoid revealing background)
+    gsap.to(splineWrapper, {
+      scale: 1.25,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+  }
+
+  // 2. ANTI-GRAVITY FLOATING CHIPS
+  const chips = document.querySelectorAll('.float-chip');
+  const chipContainer = document.querySelector('.chip-container');
+  
+  const chipData = Array.from(chips).map(chip => {
+    // Scatter around edges
+    const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+    let x, y;
+    if (side === 0) { x = Math.random() * 100; y = Math.random() * 20; }
+    else if (side === 1) { x = 80 + Math.random() * 20; y = Math.random() * 100; }
+    else if (side === 2) { x = Math.random() * 100; y = 80 + Math.random() * 20; }
+    else { x = Math.random() * 20; y = Math.random() * 100; }
+
+    chip.style.left = `${x}%`;
+    chip.style.top = `${y}%`;
+
+    return {
+      el: chip,
+      baseX: x,
+      baseY: y,
+      x: 0,
+      y: 0,
+      targetX: 0,
+      targetY: 0,
+      parallax: parseFloat(chip.dataset.parallax) || 0.08,
+      floatDuration: 4 + Math.random() * 3,
+      floatOffset: 12
+    };
+  });
+
+  // Idle float animation
+  chipData.forEach(data => {
+    gsap.to(data.el, {
+      y: `-=${data.floatOffset}px`,
+      duration: data.floatDuration,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
     });
   });
 
-  // 2. HERO NETWORK CANVAS
-  const canvas = document.getElementById('heroCanvas');
-  const ctx = canvas?.getContext('2d');
-  const chips = document.querySelectorAll('.float-chip');
-  let mouse = { x: null, y: null };
+  // Mouse repulsion and parallax
+  let mouseX = 0, mouseY = 0;
+  let lastMouseX = 0, lastMouseY = 0;
+  let mouseVel = 0;
 
-  const resizeCanvas = () => {
-    if (canvas) {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-  };
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-
-  const drawLines = () => {
-    if (!ctx || !canvas) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
     
-    const chipRects = Array.from(chips).map(chip => {
-      const rect = chip.getBoundingClientRect();
-      return {
-        x: rect.left + rect.width / 2,
-        y: rect.top + rect.height / 2,
-        el: chip
-      };
+    // Velocity calculation for spotlight
+    const dx = mouseX - lastMouseX;
+    const dy = mouseY - lastMouseY;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    mouseVel = Math.min(dist / 50, 0.15); // Max 0.15 opacity
+    
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+  });
+
+  const updateChips = () => {
+    const scrollY = window.pageYOffset;
+
+    chipData.forEach(data => {
+      const rect = data.el.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const dx = mouseX - centerX;
+      const dy = mouseY - centerY;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+
+      let forceX = 0;
+      let forceY = 0;
+
+      if (dist < 180) {
+        const angle = Math.atan2(dy, dx);
+        const power = (1 - dist / 180) * 70;
+        forceX = -Math.cos(angle) * power;
+        forceY = -Math.sin(angle) * power;
+      }
+
+      // Parallax
+      const parallaxY = scrollY * data.parallax;
+
+      // Lerp
+      data.targetX = forceX;
+      data.targetY = forceY - parallaxY;
+
+      data.x += (data.targetX - data.x) * 0.08;
+      data.y += (data.targetY - data.y) * 0.08;
+
+      data.el.style.transform = `translate(${data.x}px, ${data.y}px)`;
     });
 
-    ctx.strokeStyle = 'rgba(184, 255, 87, 0.15)';
-    ctx.lineWidth = 1;
-
-    for (let i = 0; i < chipRects.length; i++) {
-      for (let j = i + 1; j < chipRects.length; j++) {
-        const dx = chipRects[i].x - chipRects[j].x;
-        const dy = chipRects[i].y - chipRects[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 400) {
-          ctx.beginPath();
-          ctx.moveTo(chipRects[i].x, chipRects[i].y);
-          ctx.lineTo(chipRects[j].x, chipRects[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(drawLines);
-  };
-  drawLines();
-
-  // 3. HERO 3D MOUSE EFFECTS
-  const hero = document.querySelector('.hero');
-  const tiltHeadline = document.querySelector('.tilt-hero');
-  const brainAsset = document.querySelector('.hero-brain-asset');
-
-  if (hero) {
-    hero.addEventListener('mousemove', (e) => {
-      const { clientX, clientY } = e;
-      const xPos = (clientX / window.innerWidth) - 0.5;
-      const yPos = (clientY / window.innerHeight) - 0.5;
-      mouse.x = clientX;
-      mouse.y = clientY;
-
-      if (tiltHeadline) {
-        gsap.to(tiltHeadline, {
-          rotateY: xPos * 15,
-          rotateX: -yPos * 15,
-          duration: 0.6,
-          ease: 'power2.out'
-        });
-      }
-
-      if (brainAsset) {
-        gsap.to(brainAsset, {
-          x: xPos * 40,
-          y: yPos * 40,
-          scale: 1.05,
-          duration: 0.8,
-          ease: 'power2.out'
-        });
-      }
-
-      // Chip micro-movement
-      chips.forEach((chip, i) => {
-        const offset = (i % 3 + 1) * 10;
-        gsap.to(chip, {
-          x: xPos * offset,
-          y: yPos * offset,
-          duration: 0.4 + (i * 0.05),
-          ease: 'power2.out'
-        });
+    // Spotlight update
+    const spotlight = document.querySelector('.spotlight');
+    if (spotlight) {
+      gsap.to(spotlight, {
+        opacity: Math.max(0.05, mouseVel), // subtle base opacity
+        background: `radial-gradient(600px at ${mouseX}px ${mouseY}px, rgba(184,255,87,0.08), transparent 70%)`,
+        duration: 0.3
       });
-    });
+    }
 
-    hero.addEventListener('mouseleave', () => {
-      gsap.to(brainAsset, { x: 0, y: 0, scale: 1, duration: 1 });
-      gsap.to(tiltHeadline, { rotateX: 0, rotateY: 0, duration: 1 });
-      chips.forEach(chip => gsap.to(chip, { x: 0, y: 0, duration: 1 }));
-    });
-  }
+    requestAnimationFrame(updateChips);
+  };
+  updateChips();
 
   // 4. VIDEO SCRUBBING
   const video = document.getElementById('scrubVideo');
