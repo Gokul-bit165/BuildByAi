@@ -32,15 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
       delay: 0.5
     });
 
-    // Scroll parallax enhancement (Subtle scale instead of movement to avoid revealing background)
-    gsap.to(splineWrapper, {
-      scale: 1.25,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
+    // Scroll Pinning & Parallax enhancement
+    ScrollTrigger.create({
+      trigger: '.hero',
+      start: 'top top',
+      end: '+=100%', // Scroll for 100% of viewport height while pinned
+      pin: true,
+      pinSpacing: true,
+      scrub: true,
+      onUpdate: (self) => {
+        // Optional: manual zoom enhancement during pin
+        gsap.set(splineWrapper, { scale: 1.15 + (self.progress * 0.1) });
       }
     });
   }
