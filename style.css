@@ -19,7 +19,7 @@
 }
 
 html {
-  scroll-behavior: smooth; /* Enabled as per user request */
+  /* Removed scroll-behavior: smooth to prevent conflicts with Lenis */
   overflow-x: hidden;
 }
 

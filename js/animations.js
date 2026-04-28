@@ -1,7 +1,6 @@
 // LENIS SMOOTH SCROLL OPTIMIZATION
 const lenis = new Lenis({
-  lerp: 0.06, // Even smoother follow
-  duration: 1.5,
+  lerp: 0.1, // Increased from 0.06 for faster, more responsive scrolling
   smoothWheel: true,
   wheelMultiplier: 1,
   touchMultiplier: 2,
@@ -174,22 +173,24 @@ document.addEventListener('DOMContentLoaded', () => {
   gsap.to('#leftHand', {
     x: '-35vw',
     opacity: 0.6,
+    ease: 'none', // Added linear ease
     scrollTrigger: {
       trigger: '#handsSection',
       start: 'top bottom',
       end: 'top top',
-      scrub: 1,
+      scrub: 0.5,
     }
   });
 
   gsap.to('#rightHand', {
     x: '25vw',
     opacity: 0.6,
+    ease: 'none', // Added linear ease
     scrollTrigger: {
       trigger: '#handsSection',
       start: 'top bottom',
       end: 'top top',
-      scrub: 1,
+      scrub: 0.5,
     }
   });
 
@@ -198,29 +199,32 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollTrigger: {
       trigger: '#handsSection',
       start: 'top top',
-      end: '+=180%', 
+      end: '+=80%', // Slightly decreased for quicker overall completion
       pin: true,
-      scrub: 1,
+      scrub: 0.5,
     }
   });
 
   handsTl
     // Phase 1: Close in
-    .to('#leftHand', { x: '-22vw', opacity: 0.8, duration: 0.4, ease: 'power1.inOut' }, 0)
-    .to('#rightHand', { x: '12vw', opacity: 0.8, duration: 0.4, ease: 'power1.inOut' }, 0)
+    .to('#leftHand', { x: '-22vw', opacity: 0.8, duration: 0.4, ease: 'none' }, 0)
+    .to('#rightHand', { x: '12vw', opacity: 0.8, duration: 0.4, ease: 'none' }, 0)
 
     // Phase 2: Tension
-    .to('#leftHand', { x: '-18vw', scale: 1.02, duration: 0.2, ease: 'power1.out' }, 0.4)
-    .to('#rightHand', { x: '8vw', scale: 1.02, duration: 0.2, ease: 'power1.out' }, 0.4)
+    .to('#leftHand', { x: '-18vw', scale: 1.02, duration: 0.2, ease: 'none' }, 0.4)
+    .to('#rightHand', { x: '8vw', scale: 1.02, duration: 0.2, ease: 'none' }, 0.4)
 
     // Phase 3: Touch Moment
-    .to('#leftHand', { x: '-14.7vw', scale: 1.05, opacity: 1, duration: 0.1, ease: 'power4.in' }, 0.6)
-    .to('#rightHand', { x: '4.7vw', scale: 1.05, opacity: 1, duration: 0.1, ease: 'power4.in' }, 0.6)
-    .to('#spark', { opacity: 1, scale: 1.6, duration: 0.05, ease: 'expo.out' }, 0.6)
-    .to('#bgGlow', { opacity: 1, duration: 0.1 }, 0.6)
+    .to('#leftHand', { x: '-14.7vw', scale: 1.05, opacity: 1, duration: 0.1, ease: 'none' }, 0.6)
+    .to('#rightHand', { x: '4.7vw', scale: 1.05, opacity: 1, duration: 0.1, ease: 'none' }, 0.6)
+    .to('#spark', { opacity: 1, scale: 1.6, duration: 0.05, ease: 'none' }, 0.6)
+    .to('#bgGlow', { opacity: 1, duration: 0.1, ease: 'none' }, 0.6)
 
     // Phase 4: Hold & Wave
-    .to('#spark', { scale: 2.5, opacity: 0.2, duration: 0.3 }, 0.7)
-    .fromTo('#wave1', { scale: 0, opacity: 0.8 }, { scale: 30, opacity: 0, duration: 0.3, ease: 'power2.out' }, 0.7)
-    .fromTo('#wave2', { scale: 0, opacity: 0.5 }, { scale: 50, opacity: 0, duration: 0.3, ease: 'power2.out' }, 0.75);
+    .to('#spark', { scale: 2.5, opacity: 0.2, duration: 0.3, ease: 'none' }, 0.7)
+    .fromTo('#wave1', { scale: 0, opacity: 0.8 }, { scale: 30, opacity: 0, duration: 0.3, ease: 'none' }, 0.7)
+    .fromTo('#wave2', { scale: 0, opacity: 0.5 }, { scale: 50, opacity: 0, duration: 0.3, ease: 'none' }, 0.75)
+    
+    // Phase 5: Hold State (Keeps the hands fixed in the touched position before unpinning)
+    .to({}, { duration: 1.0 }); // Increased hold duration heavily so it stops completely at the wave and stays fixed
 });
