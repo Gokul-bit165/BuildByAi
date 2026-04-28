@@ -622,6 +622,10 @@ footer {
   z-index: 1001;
 }
 
+.show-on-mobile {
+  display: none !important;
+}
+
 .burger span {
   width: 30px;
   height: 2px;
@@ -670,6 +674,54 @@ footer {
   pointer-events: all;
 }
 
+/* Footer / Spline Background */
+.site-footer {
+  position: relative;
+  height: 100vh;
+  padding: 4rem;
+  overflow: hidden;
+  margin-top: -1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.footer-spline-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.footer-spline-iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  /* Simulate object-fit cover for tall portrait screens */
+  min-width: 150vh; 
+  min-height: 56.25vw;
+  transform: translate(-50%, -50%) scale(1.2);
+  border: none;
+}
+
+.footer-content {
+  position: relative;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  pointer-events: auto;
+}
+
 @media (max-width: 1024px) {
   nav { padding: 1.5rem 2rem; }
   .services-section > div { grid-template-columns: repeat(2, 1fr) !important; }
@@ -681,6 +733,7 @@ footer {
 @media (max-width: 768px) {
   /* Navigation */
   .nav-links, .hide-on-mobile { display: none !important; }
+  .show-on-mobile { display: block !important; }
   .burger { display: flex; }
   nav { padding: 1rem 1.5rem !important; }
 
@@ -705,9 +758,9 @@ footer {
   .spark { width: 280px; height: 280px; filter: blur(30px); }
   
   /* Footer */
-  footer { padding: 2rem 1.5rem; }
+  .site-footer { padding: 2rem 1.5rem; height: 100vh; } /* keep 100vh on mobile */
   .footer-big-text { font-size: 15vw; }
-  footer > div { flex-direction: column; gap: 1rem; align-items: flex-start !important; }
+  .footer-links { flex-direction: column; gap: 1rem; align-items: flex-start !important; }
   
   .contact-section h2 { font-size: 15vw !important; }
   .contact-section { padding: 6rem 1.5rem !important; }
