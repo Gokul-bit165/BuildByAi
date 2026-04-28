@@ -12,8 +12,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@200;300;400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.88/build/spline-viewer.js"></script>
 </head>
 <body>
+
+  <!-- SPLINE BACKGROUND -->
+  <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; overflow: hidden;">
+    <iframe src='https://my.spline.design/l39apothosed39hercule-8Lzo413EXeud63DuwKIOTgTs/' frameborder='0' width='100%' height='100%' style='transform: scale(1.15); transform-origin: center center;'></iframe>
+    <!-- Dark overlay to ensure the text remains readable over the art -->
+    <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,5,7,0.4) 0%, rgba(5,5,7,0.95) 100%); pointer-events: none;"></div>
+  </div>
 
   <!-- NOISE FILTER -->
   <div class="noise-overlay"></div>
@@ -43,7 +51,7 @@
     <a href="contact.html" class="nav-cta">Start a Project</a>
   </nav>
 
-  <main style="padding: 15rem 4rem 10rem;">
+  <main style="position: relative; z-index: 10; padding: 15rem 4rem 10rem; pointer-events: none;">
     <section style="max-width: 1000px;">
       <span style="font-family: var(--mono); color: var(--accent); font-size: 0.8rem; letter-spacing: 0.2em;">OUR STORY</span>
       <h1 style="font-family: var(--bebas); font-size: 7rem; line-height: 0.9; margin-top: 2rem;">WE ARE THE<br>ARCHITECTS OF<br>INTELLIGENCE</h1>
